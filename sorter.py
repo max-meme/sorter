@@ -53,18 +53,18 @@ def set_stepper(status):
 #sets micro stepping resolution
 def set_resolution(res):
     log("setting resolution to " + str(res))
-    res_multi = res
     resolution = {"1": (0, 0, 0),"1/2": (1, 0, 0),"1/4": (0, 1, 0),"1/8": (1, 1, 0),"1/16": (0, 0, 1),"1/32": (1, 0, 1)}
+    multiplier = {"1": 1,"1/2": 2,"1/4": 4,"1/8": 8,"1/16": 16,"1/32": 32}
+    res_multi = multiplier[res]
     GPIO.output(Micros, resolution[str(res)])
 
 
 #home all axis
 def auto_home():
-    print(db, "Auto Home start")
+    print("Auto Home start")
     set_stepper(True)
     set_resolution(1/32)
     home = False
-    dirs = [CCW, CCW, CCW, CCW]
 
     #loops trough all motors and checks if their buttons are pressed; stepps if not
     while(home == False):
@@ -73,21 +73,50 @@ def auto_home():
         for mot in motors:
             if mot.button == False:
                 home = False
-                mot.step("backwards", main_delay * res_multi)
+                mot.step("backwards", main_delay / res_multi)
+    x = 0
+    y = 0
+    z = 0
+    print("Auto home finished")
 
+def moveto(x_to, y_to, z_to):
+    x_dif = x_to - x
+    y_dif = y_to - y
+    z_dif = z_to - z
+
+    x_dir = "forwards"
+    if x_dif < 0:
+        x_dir = "backwards"
+    
+    y_dir = "forwards"
+    if y_dif < 0:
+        y_dir = "backwards"
+    
+    z_dir = "forwards"
+    if z_dif < 0:
+        z_dir = "backwards"
+    
+    x_dif_abs = abs(x_dif)
+    y_dif_abs = abs(y_dif)
+    z_dif_abs = abs(z_dif)
+
+    for i in range(x_dif_abs * res_multi):
+        motor_x_left.step(x_dir, main_delay / res_multi)
+        motor_x_right.step(x_dir, main_delay / res_multi)
+    
+    for i in range(y_dif_abs * res_multi):
+        motor_y.step(y_dir, main_delay / res_multi)
+
+    for i in range(z_dif_abs * res_multi):
+        motor_z.step(z_dir, main_delay / res_multi)
 
 # ------starting code-------
 
 #Set GPIO Modes
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(Micros, GPIO.OUT)
-
-setOut = [STEPs, DIRs, [slp]]
-for i in setOut:
-    for y in i:
-        GPIO.setup(i, GPIO.OUT)
+GPIO.setup(slp, GPIO.OUT)
 
 set_stepper(True)
 
-step_count = SPR * 32
-
+auto_home()
