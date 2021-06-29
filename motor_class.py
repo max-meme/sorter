@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 from time import sleep
 from log import log
 
-db = True
+db = False
 
 class Motor:
     def __init__(this, name, dir_pin, step_pin, button_pin, forwards, backwards):

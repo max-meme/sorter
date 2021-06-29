@@ -22,7 +22,7 @@ motor_y = Motor("motor_y", 7, 6, 21, CW, CCW)
 motor_z = Motor("motor_z", 27, 8, 12, CW, CCW)
 
 motors = [motor_x_left, motor_x_right, motor_y, motor_z]
-db = True
+db = False
 
 x = 0
 y = 0
@@ -62,7 +62,7 @@ def set_resolution(res):
 def auto_home():
     print("Auto Home start")
     set_stepper(True)
-    set_resolution("1/32")
+    set_resolution("1/8")
     home = False
     homing = [[motor_z], [motor_x_left, motor_x_right], [motor_y]]
 
@@ -70,6 +70,7 @@ def auto_home():
     for mots_arr in homing:
         axis_home = False
         while(axis_home == False):
+            update_in()
             axis_home = True
             for mot in mots_arr:
                 if mot.button == False:
