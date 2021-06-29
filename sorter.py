@@ -2,7 +2,6 @@ from motor_class import Motor
 from log import log
 
 from time import sleep
-import numpy as np
 import RPi.GPIO as GPIO
 
 #globals
@@ -101,8 +100,8 @@ def moveto(x_to, y_to, z_to):
     z_dif_abs = abs(z_dif)
 
     for i in range(x_dif_abs * res_multi):
-        motor_x_left.step(x_dir, main_delay / res_multi)
-        motor_x_right.step(x_dir, main_delay / res_multi)
+        motor_x_left.step(x_dir, main_delay / res_multi / 2)
+        motor_x_right.step(x_dir, main_delay / res_multi / 2)
     
     for i in range(y_dif_abs * res_multi):
         motor_y.step(y_dir, main_delay / res_multi)
