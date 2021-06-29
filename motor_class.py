@@ -40,7 +40,7 @@ class Motor:
         log("reading inputs")
         status = GPIO.input(this.button_pin)
         if status == 1:
-            this.button = True
-        else:
             this.button = False
+        else:
+            this.button = True
         log(str(this.button) + ": " + str(status))
