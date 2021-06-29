@@ -19,7 +19,7 @@ class Motor:
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(dir_pin, GPIO.OUT)
         GPIO.setup(step_pin, GPIO.OUT)
-        GPIO.setup(button_pin, GPIO.IN)
+        GPIO.setup(button_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
     def step(this, in_direction, delay):
         log(db, this.name + " is making Step " + in_direction)
@@ -37,10 +37,10 @@ class Motor:
         sleep(delay)
 
     def read_button(this):
-        log("reading inputs")
+        log(db, "reading inputs")
         status = GPIO.input(this.button_pin)
         if status == 1:
             this.button = False
         else:
             this.button = True
-        log(str(this.button) + ": " + str(status))
+        log(db, str(this.button) + ": " + str(status))

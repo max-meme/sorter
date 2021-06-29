@@ -43,7 +43,7 @@ def update_in():
 
 #activates and deactivates holding torque
 def set_stepper(status):
-    log("setting steppers to " + str(status))
+    log(db, "setting steppers to " + str(status))
     if status:
         GPIO.output(slp, GPIO.HIGH)
     else:
@@ -51,28 +51,30 @@ def set_stepper(status):
 
 #sets micro stepping resolution
 def set_resolution(res):
-    log("setting resolution to " + str(res))
+    log(db, "setting resolution to " + res)
     resolution = {"1": (0, 0, 0),"1/2": (1, 0, 0),"1/4": (0, 1, 0),"1/8": (1, 1, 0),"1/16": (0, 0, 1),"1/32": (1, 0, 1)}
     multiplier = {"1": 1,"1/2": 2,"1/4": 4,"1/8": 8,"1/16": 16,"1/32": 32}
     res_multi = multiplier[res]
-    GPIO.output(Micros, resolution[str(res)])
+    GPIO.output(Micros, resolution[res])
 
 
 #home all axis
 def auto_home():
     print("Auto Home start")
     set_stepper(True)
-    set_resolution(1/32)
+    set_resolution("1/32")
     home = False
+    homing = [[motor_z], [motor_x_left, motor_x_right], [motor_y]]
 
     #loops trough all motors and checks if their buttons are pressed; stepps if not
-    while(home == False):
-        home = True
-        update_in()
-        for mot in motors:
-            if mot.button == False:
-                home = False
-                mot.step("backwards", main_delay / res_multi)
+    for mots_arr in homing:
+        axis_home = False
+        while(axis_home == False):
+            axis_home = True
+            for mot in mots_arr:
+                if mot.button == False:
+                    axis_home = False
+                    mot.step("backwards", main_delay / res_multi / len(mots_arr))
     x = 0
     y = 0
     z = 0
