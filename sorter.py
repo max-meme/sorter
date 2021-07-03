@@ -18,7 +18,7 @@ main_delay = 0.0208
 #forwards is the direction away from the motors button
 motor_x_left = Motor("motor_x_left", 16, 17, 19, CW, CCW)
 motor_x_right = Motor("motor_x_right", 4, 5, 20, CW, CCW)
-motor_y = Motor("motor_y", 7, 6, 21, CW, CCW)
+motor_y = Motor("motor_y", 7, 6, 21, CCW, CW)
 motor_z = Motor("motor_z", 27, 8, 12, CW, CCW)
 
 motors = [motor_x_left, motor_x_right, motor_y, motor_z]
@@ -75,7 +75,7 @@ def auto_home():
             for mot in mots_arr:
                 if mot.button == False:
                     axis_home = False
-                    mot.step("backwards", main_delay / res_multi / len(mots_arr))
+                    mot.make_steps(res_multi, "backwards", main_delay / res_multi / len(mots_arr))
     x = 0
     y = 0
     z = 0
