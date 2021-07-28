@@ -1,3 +1,4 @@
+from controller import *
 
 class Handler:
     def __init__(this, UI):
@@ -15,4 +16,12 @@ class Handler:
         if command == "blöd":
             this.UI.console_addline("> ne du")
             print(args)
+        
+        if command == "autohome":
+            this.UI.console_addline("> autohoming")
+            auto_home()
+        
+        if command == "moveto":
+            this.UI.console_addline("> moving to coords")
+            moveto(int(args[0]), int(args[1]), int(args[2]))
         
