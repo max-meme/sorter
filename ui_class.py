@@ -1,5 +1,6 @@
 import tkinter as tk
 from handler_class import Handler
+from datetime import datetime
 
 class UI:
     def __init__(this, window_name):
@@ -9,7 +10,9 @@ class UI:
         this.create_UI()
     
     def console_addline(this, text):
-        this.Lb.insert(0, text)
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        this.Lb.insert(0, "[" + current_time + "]: " + text)
 
     def send(this):
         text = this.inp.get()
@@ -66,10 +69,13 @@ class UI:
         Lb.pack(expand=True, fill=tk.BOTH)
         console_text_Frame.pack(expand=True, fill=tk.BOTH)
         
-        #test scroll
-        testlist = ["1", "2", "3", "4", "5", "6"]
-        for item in testlist:
-            Lb.insert(0, item)
+        #x y z indicators
+        indicator_Frame = tk.Frame(root, relief=tk.RIDGE, bd=3)
+        indicator_Frame.place(relx=0.5, rely=1, anchor="sw")
+
+        x_Label = tk.Label(indicator_Frame, text="x: 0", background="#1cff20").pack(side=tk.TOP)
+        y_Label = tk.Label(indicator_Frame, text="y: 0", background="#ff3c2e").pack(side=tk.TOP)
+        z_Label = tk.Label(indicator_Frame, text="z: 0", background="#2ec7ff").pack(side=tk.TOP)
         
 
         root.mainloop()
