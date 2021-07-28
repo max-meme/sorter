@@ -10,10 +10,9 @@ class Handler:
         command = text_list[0]
         text_list.pop(0)
         args = text_list
-        match command:
-                case "":
-                    return
-                case "blöd":
-                    this.UI.console_addline("> ne du")
-                    print(args)
+        if command == "":
+            return
+        if command == "blöd":
+            this.UI.console_addline("> ne du")
+            print(args)
         
