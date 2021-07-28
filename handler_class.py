@@ -13,7 +13,7 @@ class Handler:
         args = text_list
         if command == "":
             return
-        if command == "blöd":
+        if command == "doof":
             this.UI.console_addline("> ne du")
             print(args)
         
