@@ -31,6 +31,6 @@ class Handler:
             moveto(int(args[0]), int(args[1]), int(args[2]), this.UI)
 
     def arrows(this, x, y):
-        print("hey")
+        moverel(x, y, 0)
         
         
