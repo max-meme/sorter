@@ -23,10 +23,15 @@ class Handler:
             auto_home()
         
         if command == "moveto":
+            # check if negative
+            if int(args[0]) < 0 or int(args[1]) < 0 or int(args[2]) < 0:
+                this.UI.console_addline("Error: cannot move to negative")
+                return
             this.UI.console_addline("> moving to coords")
             this.UI.setxyz(int(args[0]), int(args[1]), int(args[2]))
             moveto(int(args[0]), int(args[1]), int(args[2]))
 
     def arrows(this, x, y):
         print("hey")
+        
         

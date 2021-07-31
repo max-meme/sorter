@@ -1,6 +1,5 @@
 from motor_class import Motor
 from log import log
-
 import RPi.GPIO as GPIO
 
 #globals
@@ -11,7 +10,7 @@ CCW = 0
 SPR = 48 #Stepps per revolution
 slp = 14 #Sleep pin
 res_multi = 1 #Resolution Multiplier
-main_delay = 0.0208
+main_delay = 0.0208 / 128
 
 #motors
 #forwards is the direction away from the motors button
@@ -110,10 +109,6 @@ def moveto(x_to, y_to, z_to):
 
     for i in range(z_dif_abs * res_multi):
         motor_z.step(z_dir, main_delay / res_multi)
-
-# ------starting code-------
-
-#Set GPIO Modes
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(Micros, GPIO.OUT)
-GPIO.setup(slp, GPIO.OUT)
+    
+    def moverel(x_rel, y_rel, z_rel):
+        print()
