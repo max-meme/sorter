@@ -1,4 +1,5 @@
 # coding=utf-8
+from controller import *
 
 import tkinter as tk
 from handler_class import Handler
@@ -32,18 +33,25 @@ class UI:
         arrow_Frame.place(anchor="w", relx=0, rely=0.5)
 
         chars = ["↖", "↑", "↗", "←", "o", "→", "↙", "↓", "↘"]
-        command_inputs = []
+        s = 10 #configure amount of steps here
+        command_inputs = [
+            this.handler.arrows(-s, s), this.handler.arrows(0, s), this.handler.arrows(s, s),
+            this.handler.arrows(-s, 0), auto_home(), this.handler.arrows(s, 0),
+            this.handler.arrows(-s, -s), this.handler.arrows(0, -s), this.handler.arrows(s, -s)
+        ]
         arrow_buttons = []
         posx = 0
         posy = 0
+        i = 0
         for c in chars:
-            temp_button = tk.Button(arrow_Frame, text = c, height = 2, width = 4)
+            temp_button = tk.Button(arrow_Frame, text = c, height = 2, width = 4, command=command_inputs[i])
             temp_button.grid(column = posx, row = posy, padx=2, pady=2)
             arrow_buttons.append(temp_button)
             posx = posx + 1
             if(posx == 3):
                 posy = posy + 1
                 posx = 0
+            i = i + 1
 
         #console
         console_Frame = tk.Frame(root, background="#14a9ff")
@@ -75,10 +83,24 @@ class UI:
         indicator_Frame = tk.Frame(root, relief=tk.RIDGE, bd=3)
         indicator_Frame.place(relx=0.5, rely=1, anchor="sw")
 
-        x_Label = tk.Label(indicator_Frame, text="x: 0", background="#1cff20").pack(side=tk.TOP)
-        y_Label = tk.Label(indicator_Frame, text="y: 0", background="#ff3c2e").pack(side=tk.TOP)
-        z_Label = tk.Label(indicator_Frame, text="z: 0", background="#2ec7ff").pack(side=tk.TOP)
+        this.x_Label_text = tk.StringVar()
+        this.y_Label_text = tk.StringVar()
+        this.z_Label_text = tk.StringVar()
+
+        this.x_Label_text.set("x: 0")
+        this.y_Label_text.set("y: 0")
+        this.z_Label_text.set("z: 0")
+
+        x_Label = tk.Label(indicator_Frame, textvariable = this.x_Label_text, background="#1cff20").pack(side=tk.TOP)
+        y_Label = tk.Label(indicator_Frame, textvariable = this.y_Label_text, background="#ff3c2e").pack(side=tk.TOP)
+        z_Label = tk.Label(indicator_Frame, textvariable = this.z_Label_text, background="#2ec7ff").pack(side=tk.TOP)
         
 
         root.mainloop()
+
+    #setter for x y z
+    def setxyz(this, x, y, z):
+        this.x_Label_text.set("x: " + str(x))
+        this.y_Label_text.set("y: " + str(y))
+        this.z_Label_text.set("z: " + str(z))
 

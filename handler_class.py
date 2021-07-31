@@ -19,9 +19,14 @@ class Handler:
         
         if command == "autohome":
             this.UI.console_addline("> autohoming")
+            this.UI.setxyz(0, 0, 0)
             auto_home()
         
         if command == "moveto":
             this.UI.console_addline("> moving to coords")
+            this.UI.setxyz(int(args[0]), int(args[1]), int(args[2]))
             moveto(int(args[0]), int(args[1]), int(args[2]))
+
+    def arrows(this, x, y):
+        print("hey")
         
