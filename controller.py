@@ -118,5 +118,5 @@ def moveto(x_to, y_to, z_to, UI):
     UI.setxyz(x, y, z)
     UI.addline("> move finished")
     
-def moverel(x_rel, y_rel, z_rel):
-    moveto(x + x_rel, y + y_rel, z + z_rel)
+def moverel(x_rel, y_rel, z_rel, UI):
+    moveto(x + x_rel, y + y_rel, z + z_rel, UI)
