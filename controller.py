@@ -81,6 +81,7 @@ def auto_home(UI):
     UI.addline("> Auto home finished")
 
 def moveto(x_to, y_to, z_to, UI):
+    set_stepper(True)
     x_dif = x_to - x
     y_dif = y_to - y
     z_dif = z_to - z
