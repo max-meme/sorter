@@ -4,7 +4,6 @@ class Handler:
     def __init__(this, UI):
 
         this.UI = UI
-        
 
     def commander(this, text):
         text_list = text.split()
@@ -20,7 +19,7 @@ class Handler:
         if command == "autohome":
             this.UI.console_addline("> autohoming")
             this.UI.setxyz(0, 0, 0)
-            auto_home()
+            auto_home(this.UI)
         
         if command == "moveto":
             # check if negative
@@ -29,7 +28,7 @@ class Handler:
                 return
             this.UI.console_addline("> moving to coords")
             this.UI.setxyz(int(args[0]), int(args[1]), int(args[2]))
-            moveto(int(args[0]), int(args[1]), int(args[2]))
+            moveto(int(args[0]), int(args[1]), int(args[2]), this.UI)
 
     def arrows(this, x, y):
         print("hey")

@@ -57,7 +57,7 @@ def set_resolution(res):
 
 
 #home all axis
-def auto_home():
+def auto_home(UI):
     print("Auto Home start")
     set_stepper(True)
     set_resolution("1/8")
@@ -77,9 +77,10 @@ def auto_home():
     x = 0
     y = 0
     z = 0
-    print("Auto home finished")
+    UI.setxyz(x, y, z)
+    UI.addline("> Auto home finished")
 
-def moveto(x_to, y_to, z_to):
+def moveto(x_to, y_to, z_to, UI):
     x_dif = x_to - x
     y_dif = y_to - y
     z_dif = z_to - z
@@ -110,5 +111,11 @@ def moveto(x_to, y_to, z_to):
     for i in range(z_dif_abs * res_multi):
         motor_z.step(z_dir, main_delay / res_multi)
     
+    x = x_to
+    y = y_to
+    z = z_to
+    UI.setxyz(x, y, z)
+    UI.addline("> move finished")
+    
     def moverel(x_rel, y_rel, z_rel):
-        print()
+        moveto(x + x_rel, y + y_rel, z + z_rel)

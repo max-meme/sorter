@@ -36,7 +36,7 @@ class UI:
         s = 10 #configure amount of steps here
         command_inputs = [
             this.handler.arrows(-s, s), this.handler.arrows(0, s), this.handler.arrows(s, s),
-            this.handler.arrows(-s, 0), auto_home(), this.handler.arrows(s, 0),
+            this.handler.arrows(-s, 0), auto_home(this), this.handler.arrows(s, 0),
             this.handler.arrows(-s, -s), this.handler.arrows(0, -s), this.handler.arrows(s, -s)
         ]
         arrow_buttons = []
