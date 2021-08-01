@@ -78,7 +78,7 @@ class Controller:
         this.y = 0
         this.z = 0
         UI.setxyz(0, 0, 0)
-        UI.addline("> Auto home finished")
+        UI.console_addline("> Auto home finished")
 
     def moveto(this, x_to, y_to, z_to, UI):
         this.set_stepper(True)
@@ -116,7 +116,7 @@ class Controller:
         y = y_to
         z = z_to
         UI.setxyz(x, y, z)
-        UI.addline("> move finished")
+        UI.console_addline("> move finished")
         
     def moverel(this, x_rel, y_rel, z_rel, UI):
         this.moveto(this.x + x_rel, this.y + y_rel, this.z + z_rel, UI)
