@@ -1,6 +1,6 @@
 class Handler:
     def __init__(this, UI, controller):
-
+        this.controller = controller
         this.UI = UI
 
     def commander(this, text):
