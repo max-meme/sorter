@@ -14,8 +14,7 @@ class UI:
         this.x_Label_text = tk.StringVar(value = "x: 0")
         this.y_Label_text = tk.StringVar(value = "y: 0")
         this.z_Label_text = tk.StringVar(value = "z: 0")
-        this.Lb = None
-
+        this.Lb = tk.Listbox()
         this.create_UI(root)
     
     def console_addline(this, text):
