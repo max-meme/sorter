@@ -1,7 +1,5 @@
-from controller import *
-
 class Handler:
-    def __init__(this, UI):
+    def __init__(this, UI, controller):
 
         this.UI = UI
 
@@ -19,7 +17,7 @@ class Handler:
         if command == "autohome":
             this.UI.console_addline("> autohoming")
             this.UI.setxyz(0, 0, 0)
-            auto_home(this.UI)
+            this.controller.auto_home(this.UI)
         
         if command == "moveto":
             # check if negative
@@ -28,9 +26,9 @@ class Handler:
                 return
             this.UI.console_addline("> moving to coords")
             this.UI.setxyz(int(args[0]), int(args[1]), int(args[2]))
-            moveto(int(args[0]), int(args[1]), int(args[2]), this.UI)
+            this.controller.moveto(int(args[0]), int(args[1]), int(args[2]), this.UI)
 
     def arrows(this, x, y):
-        moverel(x, y, 0, this.UI)
+        this.controller.moverel(x, y, 0, this.UI)
         
         

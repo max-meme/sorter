@@ -1,5 +1,5 @@
 # coding=utf-8
-from controller import *
+from controller_class import Controller
 
 import tkinter as tk
 from handler_class import Handler
@@ -7,8 +7,8 @@ from datetime import datetime
 
 class UI:
     def __init__(this, window_name):
-
-        this.handler = Handler(this)
+        this.controller = Controller()
+        this.handler = Handler(this, this.controller)
         this.window_name = window_name
         this.create_UI()
     
@@ -36,7 +36,7 @@ class UI:
         s = 10 #configure amount of steps here
         command_inputs = [
             this.handler.arrows(-s, s), this.handler.arrows(0, s), this.handler.arrows(s, s),
-            this.handler.arrows(-s, 0), auto_home(this), this.handler.arrows(s, 0),
+            this.handler.arrows(-s, 0), this.controller.auto_home(this), this.handler.arrows(s, 0),
             this.handler.arrows(-s, -s), this.handler.arrows(0, -s), this.handler.arrows(s, -s)
         ]
         arrow_buttons = []
