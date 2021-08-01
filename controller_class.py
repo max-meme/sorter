@@ -103,14 +103,14 @@ class Controller:
         z_dif_abs = abs(z_dif)
 
         for i in range(x_dif_abs * this.res_multi):
-            this.motor_x_left.step(x_dir, this.main_delay / this.res_multi / 2)
-            this.motor_x_right.step(x_dir, this.main_delay / this.res_multi / 2)
+            this.motor_x_left.make_steps(this.res_multi, x_dir, this.main_delay / this.res_multi / 2)
+            this.motor_x_right.make_steps(this.res_multi, x_dir, this.main_delay / this.res_multi / 2)
         
         for i in range(y_dif_abs * this.res_multi):
-            this.motor_y.step(y_dir, this.main_delay / this.res_multi)
+            this.motor_y.make_steps(this.res_multi, y_dir, this.main_delay / this.res_multi)
 
         for i in range(z_dif_abs * this.res_multi):
-            this.motor_z.step(z_dir, this.main_delay / this.res_multi)
+            this.motor_z.make_steps(this.res_multi, z_dir, this.main_delay / this.res_multi)
         
         x = x_to
         y = y_to
