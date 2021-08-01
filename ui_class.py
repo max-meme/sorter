@@ -48,6 +48,7 @@ class UI:
         posy = 0
         i = 0
         for c in chars:
+            print(i)
             temp_button = tk.Button(arrow_Frame, text = c, height = 2, width = 4, command=lambda: command_inputs[i])
             temp_button.grid(column = posx, row = posy, padx=2, pady=2)
             arrow_buttons.append(temp_button)
