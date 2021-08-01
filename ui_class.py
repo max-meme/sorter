@@ -118,10 +118,13 @@ class UI:
         this.z_Label_text.set("z: " + str(z))
     
     def toggle_steppers(this):
+        print("ping!")
         if this.stepper_status == True:
+            print("ping! 2")
             this.controller.set_stepper(False)
             this.stepper_Label_text.set("OFF")
         else:
+            print("ping! 3")
             this.controller.set_stepper(True)
             this.stepper_Label_text.set("ON")
 
