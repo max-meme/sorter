@@ -1,13 +1,13 @@
-from motor_class import Motor
-from log import log
 from ui_class import UI
-from controller import *
+from controller_class import Controller
 import RPi.GPIO as GPIO
+
+controller = Controller()
 
 #Set GPIO Modes
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(Micros, GPIO.OUT)
-GPIO.setup(slp, GPIO.OUT)
+GPIO.setup(controller.Micros, GPIO.OUT)
+GPIO.setup(controller.slp, GPIO.OUT)
 
-set_stepper(False)
-interface = UI("hey")
+controller.set_stepper(False)
+interface = UI("hey", controller)

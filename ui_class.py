@@ -1,13 +1,11 @@
 # coding=utf-8
-from controller_class import Controller
-
 import tkinter as tk
 from handler_class import Handler
 from datetime import datetime
 
 class UI:
-    def __init__(this, window_name):
-        this.controller = Controller()
+    def __init__(this, window_name, controller):
+        this.controller = controller
         this.handler = Handler(this, this.controller)
         this.window_name = window_name
         this.create_UI()
