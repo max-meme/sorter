@@ -37,11 +37,11 @@ class UI:
         arrow_Frame.place(anchor="w", relx=0, rely=0.5)
 
         chars = ["↖", "↑", "↗", "←", "o", "→", "↙", "↓", "↘"]
-        s = 10 #configure amount of steps here
+        s = 100 #configure amount of steps here
         command_inputs = [
-            lambda: this.handler.arrows(-s, s), lambda: this.handler.arrows(0, s), lambda: this.handler.arrows(s, s),
-            lambda: this.handler.arrows(-s, 0), lambda: this.controller.auto_home(this), lambda: this.handler.arrows(s, 0),
-            lambda: this.handler.arrows(-s, -s), lambda: this.handler.arrows(0, -s), lambda: this.handler.arrows(s, -s)
+            lambda: this.handler.arrows(-s, s), lambda: this.handler.arrows(s, 0), lambda: this.handler.arrows(s, s),
+            lambda: this.handler.arrows(0, -s), lambda: this.controller.auto_home(this), lambda: this.handler.arrows(0, s),
+            lambda: this.handler.arrows(-s, -s), lambda: this.handler.arrows(-s, 0), lambda: this.handler.arrows(s, -s)
         ]
         arrow_buttons = []
         posx = 0
