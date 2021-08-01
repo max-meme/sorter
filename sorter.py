@@ -11,4 +11,4 @@ GPIO.setup(controller.Micros, GPIO.OUT)
 GPIO.setup(controller.slp, GPIO.OUT)
 
 controller.set_stepper(False)
-interface = UI("hey", controller)
+interface = UI("hey", controller, False)

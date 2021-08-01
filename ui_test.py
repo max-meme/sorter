@@ -1,3 +1,3 @@
 from ui_class import UI
 
-interface = UI("hey")
+interface = UI("hey", 0, True)

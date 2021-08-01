@@ -4,9 +4,10 @@ from handler_class import Handler
 from datetime import datetime
 
 class UI:
-    def __init__(this, window_name, controller):
+    def __init__(this, window_name, controller, testing):
+        this.testing = testing
         this.controller = controller
-        this.handler = Handler(this, this.controller)
+        this.handler = Handler(this, this.controller, this.testing)
         this.window_name = window_name
 
         root = tk.Tk()
@@ -14,6 +15,10 @@ class UI:
         this.x_Label_text = tk.StringVar(value = "x: 0")
         this.y_Label_text = tk.StringVar(value = "y: 0")
         this.z_Label_text = tk.StringVar(value = "z: 0")
+        this.stepper_status = False
+        this.light_status = False
+        this.stepper_Label_text = tk.StringVar(value = "OFF")
+        this.light_Label_text = tk.StringVar(value = "OFF")
         this.Lb = tk.Listbox()
         this.create_UI(root)
     
@@ -38,17 +43,19 @@ class UI:
 
         chars = ["↖", "↑", "↗", "←", "o", "→", "↙", "↓", "↘"]
         s = 100 #configure amount of steps here
-        command_inputs = [
-            lambda: this.handler.arrows(-s, s), lambda: this.handler.arrows(s, 0), lambda: this.handler.arrows(s, s),
-            lambda: this.handler.arrows(0, -s), lambda: this.controller.auto_home(this), lambda: this.handler.arrows(0, s),
-            lambda: this.handler.arrows(-s, -s), lambda: this.handler.arrows(-s, 0), lambda: this.handler.arrows(s, -s)
-        ]
+        if not this.testing:
+            command_inputs = [
+                lambda: this.handler.arrows(-s, s), lambda: this.handler.arrows(s, 0), lambda: this.handler.arrows(s, s),
+                lambda: this.handler.arrows(0, -s), lambda: this.controller.auto_home(this), lambda: this.handler.arrows(0, s),
+                lambda: this.handler.arrows(-s, -s), lambda: this.handler.arrows(-s, 0), lambda: this.handler.arrows(s, -s)
+            ]
+        else:
+            command_inputs = [print("test"), print("test"), print("test"), print("test"), print("test"), print("test"), print("test"), print("test"), print("test")]
         arrow_buttons = []
         posx = 0
         posy = 0
         i = 0
         for c in chars:
-            print(i)
             temp_button = tk.Button(arrow_Frame, text = c, height = 2, width = 4, command = command_inputs[i])
             temp_button.grid(column = posx, row = posy, padx=2, pady=2)
             arrow_buttons.append(temp_button)
@@ -85,12 +92,22 @@ class UI:
         
         #x y z indicators
         indicator_Frame = tk.Frame(root, relief=tk.RIDGE, bd=3)
-        indicator_Frame.place(relx=0.5, rely=1, anchor="sw")
+        indicator_Frame.place(relx=0.5, rely=1, anchor="sw", relwidth=0.06)
 
-        x_Label = tk.Label(indicator_Frame, textvariable = this.x_Label_text, background="#1cff20").pack(side=tk.TOP)
-        y_Label = tk.Label(indicator_Frame, textvariable = this.y_Label_text, background="#ff3c2e").pack(side=tk.TOP)
-        z_Label = tk.Label(indicator_Frame, textvariable = this.z_Label_text, background="#2ec7ff").pack(side=tk.TOP)
+        x_Label = tk.Label(indicator_Frame, textvariable = this.x_Label_text, background="#1cff20", justify=tk.LEFT, anchor="w").pack(side=tk.TOP, fill="x")
+        y_Label = tk.Label(indicator_Frame, textvariable = this.y_Label_text, background="#ff3c2e", justify=tk.LEFT, anchor="w").pack(side=tk.TOP, fill="x")
+        z_Label = tk.Label(indicator_Frame, textvariable = this.z_Label_text, background="#2ec7ff", justify=tk.LEFT, anchor="w").pack(side=tk.TOP, fill="x")
         
+        #status display
+
+        status_Frame = tk.Frame(root, relief=tk.RIDGE, bd=3)
+        status_Frame.place(relx=0.56, rely=1, anchor="sw")
+
+        stepper_button = tk.Button(status_Frame, text="Steppers", command=this.toggle_steppers).grid(row=0, column=0, padx=2, pady=2, sticky="NESW")
+        stepper_Label = tk.Label(status_Frame, textvariable=this.stepper_Label_text).grid(row=0, column=1, padx=2, pady=2, sticky="NESW")
+
+        lights_button = tk.Button(status_Frame, text="Lights", command=this.toggle_steppers).grid(row=1, column=0, padx=2, pady=2, sticky="NESW")
+        lights_Label = tk.Label(status_Frame, textvariable=this.light_Label_text).grid(row=1, column=1, padx=2, pady=2, sticky="NESW")
 
         root.mainloop()
 
@@ -99,4 +116,12 @@ class UI:
         this.x_Label_text.set("x: " + str(x))
         this.y_Label_text.set("y: " + str(y))
         this.z_Label_text.set("z: " + str(z))
+    
+    def toggle_steppers(this):
+        if this.stepper_status:
+            this.controller.set_stepper(False)
+            this.stepper_Label_text.set("OFF")
+        else:
+            this.controller.set_stepper(True)
+            this.stepper_Label_text.set("ON")
 

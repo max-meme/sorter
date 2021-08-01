@@ -1,5 +1,6 @@
 class Handler:
-    def __init__(this, UI, controller):
+    def __init__(this, UI, controller, testing):
+        this.testing = testing
         this.controller = controller
         this.UI = UI
 
@@ -8,7 +9,7 @@ class Handler:
         command = text_list[0]
         text_list.pop(0)
         args = text_list
-        if command == "":
+        if command == "" or this.testing:
             return
         if command == "doof":
             this.UI.console_addline("> ne du")
@@ -30,5 +31,3 @@ class Handler:
 
     def arrows(this, x, y):
         this.controller.moverel(x, y, 0, this.UI)
-        
-        
