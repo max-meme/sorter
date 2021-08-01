@@ -10,5 +10,5 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(controller.Micros, GPIO.OUT)
 GPIO.setup(controller.slp, GPIO.OUT)
 
-controller.set_stepper(False)
+UI.ui_set_steppers(False)
 interface = UI("hey", controller, False)

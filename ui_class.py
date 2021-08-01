@@ -118,7 +118,7 @@ class UI:
         this.z_Label_text.set("z: " + str(z))
     
     def toggle_steppers(this):
-        if this.stepper_status == True:
+        if this.stepper_status:
             this.stepper_status = False
             this.controller.set_stepper(False)
             this.stepper_Label_text.set("OFF")
@@ -126,4 +126,12 @@ class UI:
             this.stepper_status = True
             this.controller.set_stepper(True)
             this.stepper_Label_text.set("ON")
+    
+    def ui_set_steppers(this, status):
+        this.stepper_status = status
+        this.controller.set_stepper(status)
+        if status:
+            this.stepper_Label_text.set("ON")
+        else:
+            this.stepper_Label_text.set("OFF")
 

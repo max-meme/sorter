@@ -58,8 +58,8 @@ class Controller:
 
     #home all axis
     def auto_home(this, UI):
-        print("Auto Home start")
-        this.set_stepper(True)
+        UI.console_addline("Auto Home start")
+        UI.ui_set_steppers(True)
         this.set_resolution("1/8")
         home = False
         homing = [[this.motor_z], [this.motor_x_left, this.motor_x_right], [this.motor_y]]
@@ -81,7 +81,7 @@ class Controller:
         UI.console_addline("> Auto home finished")
 
     def moveto(this, x_to, y_to, z_to, UI):
-        this.set_stepper(True)
+        UI.ui_set_steppers(True)
         x_dif = x_to - this.x
         y_dif = y_to - this.y
         z_dif = z_to - this.z
