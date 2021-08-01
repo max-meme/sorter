@@ -9,9 +9,9 @@ class UI:
         this.handler = Handler(this, this.controller)
         this.window_name = window_name
 
-        this.x_Label_text = tk.StringVar()
-        this.y_Label_text = tk.StringVar()
-        this.z_Label_text = tk.StringVar()
+        this.x_Label_text = 0
+        this.y_Label_text = 0
+        this.z_Label_text = 0
 
         this.create_UI()
     
@@ -86,9 +86,9 @@ class UI:
         indicator_Frame = tk.Frame(root, relief=tk.RIDGE, bd=3)
         indicator_Frame.place(relx=0.5, rely=1, anchor="sw")
 
-        this.x_Label_text.set("x: 0")
-        this.y_Label_text.set("y: 0")
-        this.z_Label_text.set("z: 0")
+        this.x_Label_text = tk.StringVar(value = "x: 0")
+        this.y_Label_text = tk.StringVar(value = "y: 0")
+        this.z_Label_text = tk.StringVar(value = "z: 0")
 
         x_Label = tk.Label(indicator_Frame, textvariable = this.x_Label_text, background="#1cff20").pack(side=tk.TOP)
         y_Label = tk.Label(indicator_Frame, textvariable = this.y_Label_text, background="#ff3c2e").pack(side=tk.TOP)
