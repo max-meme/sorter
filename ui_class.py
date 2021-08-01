@@ -9,6 +9,10 @@ class UI:
         this.handler = Handler(this, this.controller)
         this.window_name = window_name
         this.create_UI()
+
+        this.x_Label_text = tk.StringVar()
+        this.y_Label_text = tk.StringVar()
+        this.z_Label_text = tk.StringVar()
     
     def console_addline(this, text):
         now = datetime.now()
@@ -80,10 +84,6 @@ class UI:
         #x y z indicators
         indicator_Frame = tk.Frame(root, relief=tk.RIDGE, bd=3)
         indicator_Frame.place(relx=0.5, rely=1, anchor="sw")
-
-        this.x_Label_text = tk.StringVar()
-        this.y_Label_text = tk.StringVar()
-        this.z_Label_text = tk.StringVar()
 
         this.x_Label_text.set("x: 0")
         this.y_Label_text.set("y: 0")
