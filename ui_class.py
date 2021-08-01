@@ -39,9 +39,9 @@ class UI:
         chars = ["↖", "↑", "↗", "←", "o", "→", "↙", "↓", "↘"]
         s = 10 #configure amount of steps here
         command_inputs = [
-            this.handler.arrows(-s, s), this.handler.arrows(0, s), this.handler.arrows(s, s),
-            this.handler.arrows(-s, 0), this.controller.auto_home(this), this.handler.arrows(s, 0),
-            this.handler.arrows(-s, -s), this.handler.arrows(0, -s), this.handler.arrows(s, -s)
+            lambda: this.handler.arrows(-s, s), lambda: this.handler.arrows(0, s), lambda: this.handler.arrows(s, s),
+            lambda: this.handler.arrows(-s, 0), lambda: this.controller.auto_home(this), lambda: this.handler.arrows(s, 0),
+            lambda: this.handler.arrows(-s, -s), lambda: this.handler.arrows(0, -s), lambda: this.handler.arrows(s, -s)
         ]
         arrow_buttons = []
         posx = 0
@@ -49,7 +49,7 @@ class UI:
         i = 0
         for c in chars:
             print(i)
-            temp_button = tk.Button(arrow_Frame, text = c, height = 2, width = 4, command=lambda: command_inputs[i])
+            temp_button = tk.Button(arrow_Frame, text = c, height = 2, width = 4, command = command_inputs[i])
             temp_button.grid(column = posx, row = posy, padx=2, pady=2)
             arrow_buttons.append(temp_button)
             posx = posx + 1
