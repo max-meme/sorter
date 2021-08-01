@@ -14,6 +14,7 @@ class UI:
         this.x_Label_text = tk.StringVar(value = "x: 0")
         this.y_Label_text = tk.StringVar(value = "y: 0")
         this.z_Label_text = tk.StringVar(value = "z: 0")
+        this.Lb = None
 
         this.create_UI(root)
     
@@ -72,15 +73,14 @@ class UI:
         console_text_Frame = tk.Frame(console_Frame)
         scrolly = tk.Scrollbar(console_text_Frame, orient=tk.VERTICAL)
         scollx = tk.Scrollbar(console_text_Frame, orient=tk.HORIZONTAL)
-        Lb = tk.Listbox(console_text_Frame, yscrollcommand=scrolly.set, xscrollcommand=scollx.set, selectmode=tk.EXTENDED)
-        this.Lb = Lb
+        this.Lb = tk.Listbox(console_text_Frame, yscrollcommand=scrolly.set, xscrollcommand=scollx.set, selectmode=tk.EXTENDED)
 
-        scrolly.config(command=Lb.yview)
-        scollx.config(command=Lb.xview)
+        scrolly.config(command=this.Lb.yview)
+        scollx.config(command=this.Lb.xview)
 
         scrolly.pack(side=tk.RIGHT, fill="y")
         scollx.pack(side=tk.BOTTOM, fill="x")
-        Lb.pack(expand=True, fill=tk.BOTH)
+        this.Lb.pack(expand=True, fill=tk.BOTH)
         console_text_Frame.pack(expand=True, fill=tk.BOTH)
         
         #x y z indicators
