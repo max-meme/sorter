@@ -8,11 +8,12 @@ class UI:
         this.controller = controller
         this.handler = Handler(this, this.controller)
         this.window_name = window_name
-        this.create_UI()
 
         this.x_Label_text = tk.StringVar()
         this.y_Label_text = tk.StringVar()
         this.z_Label_text = tk.StringVar()
+
+        this.create_UI()
     
     def console_addline(this, text):
         now = datetime.now()
