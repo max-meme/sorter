@@ -19,7 +19,7 @@ class Controller:
         this.motor_x_left = Motor("motor_x_left", 16, 17, 19, this.CW, this.CCW)
         this.motor_x_right = Motor("motor_x_right", 4, 5, 20, this.CW, this.CCW)
         this.motor_y = Motor("motor_y", 7, 6, 21, this.CCW, this.CW)
-        this.motor_z = Motor("motor_z", 27, 8, 12, this.CW, this.CCW)
+        this.motor_z = Motor("motor_z", 27, 8, 12, this.CCW, this.CW)
 
         this.motors = [this.motor_x_left, this.motor_x_right, this.motor_y, this.motor_z]
         this.db = False
