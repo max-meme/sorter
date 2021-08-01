@@ -112,10 +112,10 @@ class Controller:
         for i in range(z_dif_abs * this.res_multi):
             this.motor_z.make_steps(this.res_multi, z_dir, this.main_delay / this.res_multi)
         
-        x = x_to
-        y = y_to
-        z = z_to
-        UI.setxyz(x, y, z)
+        this.x = x_to
+        this.y = y_to
+        this.z = z_to
+        UI.setxyz(this.x, this.y, this.z)
         UI.console_addline("> move finished")
         
     def moverel(this, x_rel, y_rel, z_rel, UI):
