@@ -42,7 +42,7 @@ class UI:
         arrow_Frame.place(anchor="w", relx=0, rely=0.5)
 
         chars = ["↖", "↑", "↗", "←", "o", "→", "↙", "↓", "↘"]
-        s = 200 #configure amount of steps here
+        s = 50 #configure amount of steps here
         if not this.testing:
             command_inputs = [
                 lambda: this.handler.arrows(-s, s), lambda: this.handler.arrows(s, 0), lambda: this.handler.arrows(s, s),
