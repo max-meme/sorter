@@ -1,6 +1,7 @@
 from motor_class import Motor
 from log import log
 import RPi.GPIO as GPIO
+GPIO.setwarnings(False)
 
 class Controller:
     def __init__(this):
