@@ -2,17 +2,20 @@
 
 //---Globals---
 
+//consts
 const int DRV_count = 6;
 const int adress = 0x8;
-char temp[32];
-String cmd = "";
-String args[8];
+const int stepdelay = 0.01;
 
 //All pins used
 const int pins[] = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 20, 21, LED_BUILTIN};
 
 //All DRVs in with their respective pins
 const int DRVs[DRV_count][2] = {{2, 3}, {4, 5}, {6, 7}, {8, 9}, {10, 11}, {14, 15}};
+
+char temp[32];
+String cmd = "";
+String args[8];
 
 void setup() {
   //set all pins as out
@@ -23,14 +26,52 @@ void setup() {
   //setup I2C between Pi and Nano
   Wire.begin(adress);
   Wire.onReceive(recieveEvent);
+  Serial.begin(9600);
+  Serial.println("Ready!");
 }
 
 void loop() {
   delay(100);
 }
 
-void exec(String m) {
-  if(m = "")
+void exec() {
+  if(cmd == "step"){
+    step(args[0].toInt(), args[1].toInt(), args[2].toInt(), args[3].toInt());
+  }
+  if(cmd == "step2") {
+    step2(args[0].toInt(), args[1].toInt(), args[2].toInt(), args[3].toInt(), args[4].toInt());
+  }
+}
+
+//makes as many steps as given in the direction given and with the controller given
+void step(int drv, int steps, int dir, int divider) {
+  int step_pin = DRVs[drv][1];
+  int dir_pin = DRVs[drv][2];
+  digitalWrite(dir_pin, dir);
+  for(int i = 0; i < steps; i++) {
+    digitalWrite(step_pin, HIGH);
+    delay(stepdelay / divider);
+    digitalWrite(step_pin, LOW);
+    delay(stepdelay / divider);
+  }
+}
+
+//makes as many steps as given in the direction given and with the controller given for 2 motors at the same time
+void step2(int drv1, int drv2, int steps, int dir, int divider) {
+  int step_pin1 = DRVs[drv1][1];
+  int dir_pin1 = DRVs[drv1][2];
+  int step_pin2 = DRVs[drv2][1];
+  int dir_pin2 = DRVs[drv2][2];
+  digitalWrite(dir_pin1, dir);
+  digitalWrite(dir_pin2, dir);
+  for(int i = 0; i < steps; i++) {
+    digitalWrite(step_pin1, HIGH);
+    digitalWrite(step_pin2, HIGH);
+    delay(stepdelay / divider);
+    digitalWrite(step_pin1, LOW);
+    digitalWrite(step_pin2, LOW);
+    delay(stepdelay / divider);
+  }
 }
 
 //called when I2C revieves a message
@@ -65,6 +106,7 @@ void recieveEvent(int howMany) {
   for(int i = 0; i < 8; i++) {
     Serial.println(args[i]);
   }
+  exec();
 }
 
 //tests all DRV stepper drivers
