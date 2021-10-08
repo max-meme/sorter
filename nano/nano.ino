@@ -38,6 +38,7 @@ void recieveEvent(int howMany) {
   //RPi first byte is cmd byte so shift everything to the left 1 pos so temp contains our string
   for (int i = 0; i < howMany; ++i)
     temp[i] = temp[i + 1];
+  //blink on message
   blinkLED();
   receiveFlag = true;
 }
