@@ -6,7 +6,6 @@ bus = smbus.SMBus(1)
 # This is the address we setup in the Arduino Program
 address = 0x8
 
-#http://www.raspberry-projects.com/pi/programming-in-python/i2c-programming-in-python/using-the-i2c-interface-2
 def writeData(value):
     byteValue = StringToBytes(value)    
     bus.write_i2c_block_data(address,0x00,byteValue) #first byte is 0=command byte.. just is.
@@ -19,7 +18,6 @@ def StringToBytes(val):
                 retVal.append(ord(c))
         return retVal
 
-while True:
-    print("test-69-420-cool")
-    writeData("test-69-420-cool")
-    time.sleep(5)
+def sendI2C(m):
+    print("sending: " + m)
+    writeData(m)
