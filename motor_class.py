@@ -15,7 +15,7 @@ class Motor:
         this.step_pin = step_pin
         this.button_pin = button_pin
         this.button = False
-        #this.backwards = backwards
+        this.backwards = backwards
         this.forwards = forwards
 
         GPIO.setmode(GPIO.BCM)
