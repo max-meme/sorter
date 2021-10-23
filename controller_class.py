@@ -1,5 +1,6 @@
 from motor_class import Motor
 from log import log
+from com import sendI2C
 import RPi.GPIO as GPIO
 GPIO.setwarnings(False)
 
@@ -104,15 +105,9 @@ class Controller:
         y_dif_abs = abs(y_dif)
         z_dif_abs = abs(z_dif)
 
-        for i in range(x_dif_abs):
-            this.motor_x_left.make_steps(this.res_multi, x_dir, this.main_delay / this.res_multi / 2)
-            this.motor_x_right.make_steps(this.res_multi, x_dir, this.main_delay / this.res_multi / 2)
-        
-        for i in range(y_dif_abs):
-            this.motor_y.make_steps(this.res_multi, y_dir, this.main_delay / this.res_multi)
-
-        for i in range(z_dif_abs):
-            this.motor_z.make_steps(this.res_multi, z_dir, this.main_delay / this.res_multi)
+        sendI2C("step2-1-2-" + x_dif_abs + "-" + "0" + "-" + this.res_multi)
+        sendI2C("step-3-" + y_dif_abs + "-" + "0" + "-" + this.res_multi)
+        sendI2C("step-4-" + z_dif_abs + "-" + "0" + "-" + this.res_multi)
         
         this.x = x_to
         this.y = y_to
