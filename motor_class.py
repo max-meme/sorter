@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 from time import sleep
 from log import log
+from com import sendI2C
 GPIO.setwarnings(False)
 
 db = False
@@ -14,7 +15,7 @@ class Motor:
         this.step_pin = step_pin
         this.button_pin = button_pin
         this.button = False
-        this.backwards = backwards
+        #this.backwards = backwards
         this.forwards = forwards
 
         GPIO.setmode(GPIO.BCM)
@@ -30,12 +31,7 @@ class Motor:
             direction = this.forwards
         elif in_direction == "backwards":
             direction = this.backwards
-        GPIO.output(this.dir_pin, direction) #set direction; can be 1 or 0
-        for i in range(steps):
-            GPIO.output(this.step_pin, GPIO.HIGH)
-            sleep(delay)
-            GPIO.output(this.step_pin, GPIO.LOW)
-            sleep(delay)
+        sendI2C("step-")
 
     def read_button(this):
         log(db, "reading inputs")
